@@ -1,4 +1,4 @@
-package jp.co.nagatake.controller;
+package jp.co.tsuno.controller;
 
 import lombok.Getter;
 

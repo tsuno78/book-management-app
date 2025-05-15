@@ -1,4 +1,4 @@
-package jp.co.nagatake.data.entity;
+package jp.co.tsuno.data.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package jp.co.nagatake.controller;
+package jp.co.tsuno.controller;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import jp.co.nagatake.data.entity.Book;
-import jp.co.nagatake.form.BookForm;
-import jp.co.nagatake.form.BookForm.UpdateDeleteSelectGroup;
-import jp.co.nagatake.service.BookService;
+import jp.co.tsuno.data.entity.Book;
+import jp.co.tsuno.form.BookForm;
+import jp.co.tsuno.form.BookForm.UpdateDeleteSelectGroup;
+import jp.co.tsuno.service.BookService;
 
 /**
  * 書籍管理アプリコントローラー

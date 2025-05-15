@@ -1,11 +1,11 @@
-package jp.co.nagatake.data.dao;
+package jp.co.tsuno.data.dao;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import jp.co.nagatake.data.entity.Book;
+import jp.co.tsuno.data.entity.Book;
 
 public interface BookDao extends JpaRepository<Book, Integer>, JpaSpecificationExecutor<Book> {
 	/**

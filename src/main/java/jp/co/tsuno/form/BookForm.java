@@ -1,4 +1,4 @@
-package jp.co.nagatake.form;
+package jp.co.tsuno.form;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

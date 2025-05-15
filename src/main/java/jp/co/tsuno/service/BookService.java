@@ -1,6 +1,6 @@
-package jp.co.nagatake.service;
+package jp.co.tsuno.service;
 
-import static jp.co.nagatake.data.spec.BookSpecifications.*;
+import static jp.co.tsuno.data.spec.BookSpecifications.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +12,9 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import jp.co.nagatake.data.dao.BookDao;
-import jp.co.nagatake.data.entity.Book;
-import jp.co.nagatake.form.BookForm;
+import jp.co.tsuno.data.dao.BookDao;
+import jp.co.tsuno.data.entity.Book;
+import jp.co.tsuno.form.BookForm;
 
 /**
  * 書籍情報操作ビジネスロジッククラス

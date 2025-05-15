@@ -1,8 +1,8 @@
-package jp.co.nagatake.data.spec;
+package jp.co.tsuno.data.spec;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import jp.co.nagatake.data.entity.Book;
+import jp.co.tsuno.data.entity.Book;
 
 /**
  * 書籍検索用のSpecificationクラス
