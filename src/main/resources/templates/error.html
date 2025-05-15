@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>エラーページ</title>
+</head>
+<body>
+	<div th:if="${bookForm}">
+		<p th:each="err : ${#fields.errors('bookForm.*')}" th:text="${err}" >0</p>
+	</div>
+	<button onclick="history.back()">戻る</button>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>ログインページ</title>
+</head>
+<body>
+	<p th:if="${param.error}">
+		ログインに失敗しました。
+	</p>
+	<p th:if="${param.logout}">
+		ログアウトしました。
+	</p>
+	<p th:if="${param.timeout}">
+		セッションがタイムアウトしました。
+	</p>
+	<form th:action="@{/login}" method="post">
+		<table>
+			<tr>
+				<td>ユーザ名</td>
+				<td><input type="text" name="username" /></td>
+			</tr>
+			<tr>
+				<td>パスワード</td>
+				<td><input type="password" name="password" /></td>
+			</tr>
+		</table>
+		<input type="submit" value="ログイン" />
+	</form>
+</body>
+</html>

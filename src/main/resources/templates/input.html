@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>インプットページ</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" >
+</head>
+
+<body>
+	<form th:action="@{/save}" method="post" class="display_inline">
+		<table class="margin_5">
+			<tr>
+				<td>
+					<label for="title" th:text="#{title}">タイトル</label>
+				</td>
+				<td>
+					<input type="text" id="title" name="title" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="author" th:text="#{author}">著者</label>
+				</td>
+				<td>
+					<input type="text" id="author" name="author" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="publisher" th:text="#{publisher}">出版社</label>
+				</td>
+				<td>
+					<input type="text" id="publisher" name="publisher" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="publishedYear" th:text="#{publishedyear}">出版年</label>
+				</td>
+				<td>
+					<input type="text" id="publishedYear" name="publishedYear" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="review" th:text="#{review}">感想</label>
+				</td>
+				<td>
+					<textarea id="review" name="review" rows="5" cols="50"></textarea>
+				</td>
+			</tr>
+		</table>
+		<input type="submit" value="送信" />
+	</form>
+	<button onclick="history.back()">戻る</button>
+</body>
+
+</html>

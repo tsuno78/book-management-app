@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.color_red {
+	color: red;
+}
+
+.bgcolor_aqua {
+	background-color: aqua;
+}
+
+.display_inline {
+	display: inline;
+}
+
+.text_left{
+	text-align: left;
+}
+
+/* ★セレクタの指定内容
+ * class属性が"padding_5"であるタグの要素
+ * または、class属性が"padding_5"であるtheadタグの配下（直下でなくてよい）であるthタグの要素
+ * または、class属性が"padding_5"であるtbodyタグの配下（直下でなくてよい）であるtdタグの要素
+ */
+.padding_5
+,thead.padding_5 th
+,tbody.padding_5 td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.border_1
+,table.border_1 th
+,table.border_1 td {
+	border: solid 1px;
+}
+
+table.margin_5{
+	padding: 5px;
+}

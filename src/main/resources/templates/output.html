@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>DBアウトプットページ</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" >
+	<script th:inline="javascript">
+		function actionFunc(val) {
+			url = /*[[ @{/} ]]*/
+				document.forms['updateDeleteForm'].action = url + val;
+		}
+	</script>
+</head>
+
+<body>
+	<h1>書籍一覧</h1>
+	<form th:action="@{/search}" method="get" class="display_inline">
+		タイトル:
+		<input type="text" name="title" th:value="${title}" />
+		著者:
+		<input type="text" name="author" th:value="${author}" />
+		出版社:
+		<input type="text" name="publisher" th:value="${publisher}" />
+		<input type="submit" value="検索">
+	</form>
+	<button onclick="location.href='input'" class="display_inline">新規作成</button>
+	<form method="post" name="updateDeleteForm" class="display_inline">
+		<input type="submit" value="更新" onclick="actionFunc('update')" />
+		<input type="submit" value="削除" onclick="actionFunc('delete')" />
+		<p th:if="${#lists.isEmpty(bookList)}">表示対象データが存在しません。</p>
+		<table th:unless="${#lists.isEmpty(bookList)}" class="border_1 text_left">
+			<thead class="bgcolor_aqua padding_5">
+				<tr>
+					<th></th>
+					<th th:text="#{bookid}">書籍ID</th>
+					<th th:text="#{title}">タイトル</th>
+					<th th:text="#{author}">著者</th>
+					<th th:text="#{publisher}">出版社</th>
+					<th th:text="#{publishedyear}">出版年</th>
+					<th th:text="#{review}">感想</th>
+				</tr>
+			</thead>
+			<tbody class="padding_5">
+				<tr th:each="book : ${bookList}" th:object="${book}">
+					<td><input type="radio" name="bookId" th:value="*{id}" /></td>
+					<td th:text="*{id}"></td>
+					<td th:text="*{title}"></td>
+					<td th:text="*{author}"></td>
+					<td th:text="*{publisher}"></td>
+					<td th:text="*{publishedYear}"></td>
+					<td th:text="*{review}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</body>
+
+</html>
