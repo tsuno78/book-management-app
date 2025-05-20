@@ -10,6 +10,14 @@
 			url = /*[[ @{/} ]]*/
 				document.forms['updateDeleteForm'].action = url + val;
 		}
+		
+		function clearSearchForm(){
+			const form = document.querySelector('form');
+			form.querySelector('input[name="title"]').value = '';
+			form.querySelector('input[name="author"]').value = '';
+			form.querySelector('input[name="publisher"]').value = '';
+			form.submit();
+		}
 	</script>
 </head>
 
@@ -23,6 +31,7 @@
 		出版社:
 		<input type="text" name="publisher" th:value="${publisher}" />
 		<input type="submit" value="検索">
+		<button type="button" onclick="clearSearchForm()">クリア</button>
 	</form>
 	<button onclick="location.href='input'" class="display_inline">新規作成</button>
 	<form method="post" name="updateDeleteForm" class="display_inline">
