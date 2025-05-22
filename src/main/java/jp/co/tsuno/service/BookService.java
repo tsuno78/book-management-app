@@ -37,7 +37,7 @@ public class BookService {
 	/**
 	 * 社員情報取得_ID検索
 	 * @param id 書籍id
-	 * @returm 書籍情報
+	 * @return 書籍情報
 	 */
 	public Book getBookById(Integer id) {
 		//書籍情報格納用エンティティ
@@ -60,12 +60,12 @@ public class BookService {
 	 * @return 書籍情報
 	 */
 	public List<Book> getBookListByMultiKeyword(String title, String author, String publisher) {
-		
+
 		Specification<Book> spec = Specification.where(titleContains(title))
 				.and(authorContains(author))
 				.and(publisherContains(publisher));
-		
-		return this.dao.findAll(spec,Sort.by(Sort.Order.asc("id")));
+
+		return this.dao.findAll(spec, Sort.by(Sort.Order.asc("id")));
 	}
 
 	/**
@@ -103,5 +103,22 @@ public class BookService {
 		//bookIdのみプロパティ名が異なるため個別セット
 		entity.setId(form.getBookId());
 		return entity;
+	}
+
+	/**
+	 * お気に入り更新機能
+	 * @param id 書籍ID
+	 * @param isFavorite お気に入り
+	 */
+	public void updateFavoriteStatus(Integer id, boolean isFavorite) {
+		this.dao.updateFavoriteStatus(id, isFavorite);
+	}
+	
+	/**
+	 * お気に入り取得機能
+	 * @return 書籍情報リスト
+	 */
+	public List<Book> getFavoriteBooks(){
+		return dao.findByIsFavoriteTrue(Sort.by(Direction.ASC,"id"));
 	}
 }

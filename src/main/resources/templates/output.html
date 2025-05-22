@@ -4,18 +4,44 @@
 <head>
 	<meta charset="UTF-8">
 	<title>DBアウトプットページ</title>
-	<link href="css/style.css" rel="stylesheet" type="text/css" >
+	<link href="css/style.css" rel="stylesheet" type="text/css">
 	<script th:inline="javascript">
 		function actionFunc(val) {
 			url = /*[[ @{/} ]]*/
 				document.forms['updateDeleteForm'].action = url + val;
 		}
-		
-		function clearSearchForm(){
+
+		function clearSearchForm() {
 			const form = document.querySelector('form');
 			form.querySelector('input[name="title"]').value = '';
 			form.querySelector('input[name="author"]').value = '';
 			form.querySelector('input[name="publisher"]').value = '';
+			form.submit();
+		}
+		
+		function toggleFavorite(button){
+			const id = button.getAttribute('data-id');
+			const currentFavorite = button.getAttribute('data-isFavorite') === 'true';
+			const newFavorite = !currentFavorite;
+			
+			//POSTリクエスト用のフォームを動的に作成して送信
+			const form = document.createElement('form');
+			form.method = 'post';
+			form.action = /*[[@{/favorite}]]*/'';
+			
+			const inputId = document.createElement('input');
+			inputId.type = 'hidden';
+			inputId.name = 'id';
+			inputId.value = id;
+			form.appendChild(inputId);
+			
+			const inputFavorite = document.createElement('input');
+			inputFavorite.type = 'hidden';
+			inputFavorite.name = 'isFavorite';
+			inputFavorite.value = newFavorite;
+			form.appendChild(inputFavorite);
+			
+			document.body.appendChild(form);
 			form.submit();
 		}
 	</script>
@@ -30,13 +56,19 @@
 		<input type="text" name="author" th:value="${author}" />
 		出版社:
 		<input type="text" name="publisher" th:value="${publisher}" />
-		<input type="submit" value="検索">
-		<button type="button" onclick="clearSearchForm()">クリア</button>
+		<input type="submit" class="button_base btn-info" value="検索">
+		<button type="button" class="button_base btn-secondary" onclick="clearSearchForm()">クリア</button>
 	</form>
-	<button onclick="location.href='input'" class="display_inline">新規作成</button>
+	<button onclick="location.href='input'" class="display_inline button_base btn-primary">新規作成</button>
+	<a th:href="@{/favorites}" class="display_inline button_base btn-info">
+		お気に入り一覧
+	</a>
+	<a th:href="@{/home}" class="display_inline button_base btn-info">
+		全件表示
+	</a>
 	<form method="post" name="updateDeleteForm" class="display_inline">
-		<input type="submit" value="更新" onclick="actionFunc('update')" />
-		<input type="submit" value="削除" onclick="actionFunc('delete')" />
+		<input type="submit" value="更新" class="button_base btn-primary" onclick="actionFunc('update')" />
+		<input type="submit" value="削除" class="button_base btn-danger" onclick="actionFunc('delete')" />
 		<p th:if="${#lists.isEmpty(bookList)}">表示対象データが存在しません。</p>
 		<table th:unless="${#lists.isEmpty(bookList)}" class="border_1 text_left">
 			<thead class="bgcolor_aqua padding_5">
@@ -48,6 +80,7 @@
 					<th th:text="#{publisher}">出版社</th>
 					<th th:text="#{publishedyear}">出版年</th>
 					<th th:text="#{review}">感想</th>
+					<th th:text="#{isFavorite}">お気に入り</th>
 				</tr>
 			</thead>
 			<tbody class="padding_5">
@@ -59,6 +92,13 @@
 					<td th:text="*{publisher}"></td>
 					<td th:text="*{publishedYear}"></td>
 					<td th:text="*{review}"></td>
+					<td>
+						<button type="button" class="button_base btn-favorite"
+							th:text="*{isFavorite} ? '★' : '☆'"
+							th:attr="data-id=*{id}, data-isFavorite=*{isFavorite}"
+							onclick="toggleFavorite(this)">
+						</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>

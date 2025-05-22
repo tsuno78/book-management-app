@@ -54,4 +54,10 @@ public class Book {
 	 */
 	@Column(name = "publisher")
 	private String publisher;
+	
+	/**
+	 * お気に入り
+	 */
+	@Column(name = "is_favorite")
+	private boolean isFavorite;
 }

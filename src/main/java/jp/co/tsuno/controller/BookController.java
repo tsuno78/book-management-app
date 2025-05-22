@@ -21,10 +21,10 @@ import jp.co.tsuno.service.BookService;
  */
 @Controller
 public class BookController {
-	
+
 	@Autowired
 	private BookService bookService;
-	
+
 	/**
 	 * ログインページ表示
 	 * @param mav
@@ -36,7 +36,7 @@ public class BookController {
 		mav.setViewName(BookPageEnum.LOGIN.getPath());
 		return mav;
 	}
-	
+
 	/**
 	 * 初期表示
 	 * @param mav
@@ -50,7 +50,7 @@ public class BookController {
 		mav.setViewName(BookPageEnum.OUTPUT.getPath());
 		return mav;
 	}
-	
+
 	/**
 	 * 書籍情報検索結果表示
 	 * @param mav
@@ -61,41 +61,39 @@ public class BookController {
 	 */
 	@GetMapping("/search")
 	public ModelAndView searchBooks(
-			ModelAndView mav, 
+			ModelAndView mav,
 			@RequestParam(name = "title", required = false) String title,
 			@RequestParam(name = "author", required = false) String author,
-			@RequestParam(name = "publisher", required = false) String publisher
-			) {
+			@RequestParam(name = "publisher", required = false) String publisher) {
 		//全て空かどうかチェック
-		boolean isAllEnpty = 
-				(title == null || title.isEmpty()) &&
+		boolean isAllEnpty = (title == null || title.isEmpty()) &&
 				(author == null || author.isEmpty()) &&
 				(publisher == null || publisher.isEmpty());
-		
+
 		//書籍の情報を格納するためのリストを作成
 		List<Book> bookList;
-		
-		if(isAllEnpty) {
+
+		if (isAllEnpty) {
 			//全件検索
 			bookList = bookService.getBookList();
 		} else {
 			//条件検索
 			bookList = bookService.getBookListByMultiKeyword(title, author, publisher);
 		}
-		
+
 		// 検索ワードを返す
 		mav.addObject("title", title);
 		mav.addObject("author", author);
 		mav.addObject("publisher", publisher);
-		
+
 		//複数条件で検索した結果を取得
 		mav.addObject("bookList", bookList);
-		
+
 		//出力ページへ遷移
 		mav.setViewName(BookPageEnum.OUTPUT.getPath());
 		return mav;
 	}
-	
+
 	/**
 	 * インプットページ表示
 	 * @param mav
@@ -107,7 +105,7 @@ public class BookController {
 		mav.setViewName(BookPageEnum.INPUT.getPath());
 		return mav;
 	}
-	
+
 	/**
 	 * アップデートページ表示
 	 * @param mav
@@ -119,7 +117,7 @@ public class BookController {
 	public ModelAndView update(ModelAndView mav,
 			@Validated(UpdateDeleteSelectGroup.class) BookForm bookForm, BindingResult br) {
 		//入力エラーありの場合
-		if(br.hasErrors()) {
+		if (br.hasErrors()) {
 			mav.setViewName(BookPageEnum.ERROR.getPath());
 		} else {
 			//更新対象の社員情報を取得してセッション情報登録
@@ -129,7 +127,7 @@ public class BookController {
 		}
 		return mav;
 	}
-	
+
 	/**
 	 * 登録・更新内容保存
 	 * @param mav
@@ -140,7 +138,7 @@ public class BookController {
 	@PostMapping("/save")
 	public ModelAndView save(ModelAndView mav, @Validated BookForm bookForm, BindingResult br) {
 		//入力エラーありの場合
-		if(br.hasErrors()) {
+		if (br.hasErrors()) {
 			//エラーページへ遷移
 			mav.setViewName(BookPageEnum.ERROR.getPath());
 		} else {
@@ -153,7 +151,7 @@ public class BookController {
 		}
 		return mav;
 	}
-	
+
 	/**
 	 * 削除
 	 * @param mav
@@ -162,10 +160,10 @@ public class BookController {
 	 * @return
 	 */
 	@PostMapping("/delete")
-	public ModelAndView delete(ModelAndView mav, @Validated(UpdateDeleteSelectGroup.class) BookForm bookForm, 
+	public ModelAndView delete(ModelAndView mav, @Validated(UpdateDeleteSelectGroup.class) BookForm bookForm,
 			BindingResult br) {
 		//入力エラーありの場合
-		if(br.hasErrors()) {
+		if (br.hasErrors()) {
 			//エラーページ遷移
 			mav.setViewName(BookPageEnum.ERROR.getPath());
 		} else {
@@ -176,6 +174,46 @@ public class BookController {
 			//DBアウトプットページへ遷移
 			mav.setViewName(BookPageEnum.OUTPUT.getPath());
 		}
+		return mav;
+	}
+
+	/**
+	 * お気に入り更新機能
+	 * @param id 書籍id
+	 * @param isFavorite お気に入り
+	 * @param mav
+	 * @return mav
+	 */
+	@PostMapping("/favorite")
+	public ModelAndView toggleFavorite(@RequestParam("id") Integer id, @RequestParam("isFavorite") boolean isFavorite,
+			ModelAndView mav) {
+
+		//お気に入り状態を更新
+		this.bookService.updateFavoriteStatus(id, isFavorite);
+
+		//最新の一覧を表示
+		mav.addObject("bookList", this.bookService.getBookList());
+		mav.setViewName(BookPageEnum.OUTPUT.getPath());
+
+		return mav;
+	}
+
+	/**
+	 * お気に入り表示機能
+	 * @param mav
+	 * @return mav
+	 */
+	@GetMapping("/favorites")
+	public ModelAndView showFavorites(ModelAndView mav) {
+		//お気に入りの書籍リストを取得
+		List<Book> favoriteBooks = this.bookService.getFavoriteBooks();
+
+		//お気に入りの書籍情報をセッション登録
+		mav.addObject("bookList", favoriteBooks);
+
+		//DBアウトプットページへ遷移
+		mav.setViewName(BookPageEnum.OUTPUT.getPath());
+
 		return mav;
 	}
 }
