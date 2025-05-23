@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>アップデートページ</title>
-	<link href="css/style.css" rel="stylesheet" type="text/css" >
+	<link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -55,7 +55,17 @@
 					<label for="review" th:text="#{review}">感想</label>
 				</td>
 				<td>
-					<textarea th:field="*{review}" rows="5" cols="50" ></textarea>
+					<textarea th:field="*{review}" rows="5" cols="50"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="status" th:text="#{status}">読書ステータス</label></td>
+				<td>
+					<select id="status" name="status" th:field="${bookForm.status}">
+						<option value="UNREAD" th:selected="${bookForm.status == 'UNREAD'}">未読</option>
+						<option value="READING" th:selected="${bookForm.status == 'READING'}">読書中</option>
+						<option value="COMPLETED" th:selected="${bookForm.status == 'COMPLETED'}">読了</option>
+					</select>
 				</td>
 			</tr>
 		</table>

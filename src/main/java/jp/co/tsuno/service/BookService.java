@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.tsuno.data.dao.BookDao;
 import jp.co.tsuno.data.entity.Book;
+import jp.co.tsuno.data.entity.ReadingStatus;
 import jp.co.tsuno.form.BookForm;
 
 /**
@@ -102,6 +103,14 @@ public class BookService {
 		BeanUtils.copyProperties(form, entity);
 		//bookIdのみプロパティ名が異なるため個別セット
 		entity.setId(form.getBookId());
+		
+		//追加: ステータスをEnumに変換してセット
+		if(form.getStatus() != null && !form.getStatus().isEmpty()) {
+			entity.setStatus(ReadingStatus.valueOf(form.getStatus()));
+		} else {
+			entity.setStatus(ReadingStatus.UNREAD);
+		}
+		
 		return entity;
 	}
 

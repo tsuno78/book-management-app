@@ -49,4 +49,9 @@ public class BookForm {
 	 * 書籍の出版社
 	 */
 	private String publisher;
+	
+	/**
+	 * 読書ステータス
+	 */
+	private String status;
 }

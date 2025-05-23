@@ -8,14 +8,14 @@
 </head>
 
 <body>
-	<form th:action="@{/save}" method="post" class="display_inline">
+	<form th:action="@{/save}" method="post" class="display_inline" th:object="${bookForm}">
 		<table class="margin_5">
 			<tr>
 				<td>
 					<label for="title" th:text="#{title}">タイトル</label>
 				</td>
 				<td>
-					<input type="text" id="title" name="title" />
+					<input type="text" id="title" th:field="*{title}" />
 				</td>
 			</tr>
 			<tr>
@@ -23,7 +23,7 @@
 					<label for="author" th:text="#{author}">著者</label>
 				</td>
 				<td>
-					<input type="text" id="author" name="author" />
+					<input type="text" id="author" th:field="*{author}" />
 				</td>
 			</tr>
 			<tr>
@@ -31,7 +31,7 @@
 					<label for="publisher" th:text="#{publisher}">出版社</label>
 				</td>
 				<td>
-					<input type="text" id="publisher" name="publisher" />
+					<input type="text" id="publisher" th:field="*{publisher}" />
 				</td>
 			</tr>
 			<tr>
@@ -39,7 +39,7 @@
 					<label for="publishedYear" th:text="#{publishedyear}">出版年</label>
 				</td>
 				<td>
-					<input type="text" id="publishedYear" name="publishedYear" />
+					<input type="text" id="publishedYear" th:field="*{publishedYear}" />
 				</td>
 			</tr>
 			<tr>
@@ -47,7 +47,17 @@
 					<label for="review" th:text="#{review}">感想</label>
 				</td>
 				<td>
-					<textarea id="review" name="review" rows="5" cols="50"></textarea>
+					<textarea id="review" th:field="*{review}" rows="5" cols="50"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="status" th:text="#{status}">読書ステータス</label></td>
+				<td>
+					<select id="status" name="status" th:field="${bookForm.status}">
+						<option value="UNREAD" th:selected="${bookForm.status == 'UNREAD'}">未読</option>
+						<option value="READING" th:selected="${bookForm.status == 'READING'}">読書中</option>
+						<option value="COMPLETED" th:selected="${bookForm.status == 'COMPLETED'}">読了</option>
+					</select>
 				</td>
 			</tr>
 		</table>

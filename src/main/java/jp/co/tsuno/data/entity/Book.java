@@ -2,6 +2,8 @@ package jp.co.tsuno.data.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -60,4 +62,11 @@ public class Book {
 	 */
 	@Column(name = "is_favorite")
 	private boolean isFavorite;
+	
+	/*
+	 * 読書ステータス
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(name = "reading_status")
+	private ReadingStatus status;
 }

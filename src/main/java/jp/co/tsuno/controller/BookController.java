@@ -101,6 +101,9 @@ public class BookController {
 	 */
 	@GetMapping("/input")
 	public ModelAndView input(ModelAndView mav) {
+		
+		mav.addObject("bookForm", new BookForm());
+		
 		//インプットページ表示
 		mav.setViewName(BookPageEnum.INPUT.getPath());
 		return mav;
@@ -114,8 +117,10 @@ public class BookController {
 	 * @return
 	 */
 	@PostMapping("/update")
-	public ModelAndView update(ModelAndView mav,
-			@Validated(UpdateDeleteSelectGroup.class) BookForm bookForm, BindingResult br) {
+	public ModelAndView update(@Validated(UpdateDeleteSelectGroup.class) BookForm bookForm, BindingResult br) {
+		
+		ModelAndView mav = new ModelAndView();
+		
 		//入力エラーありの場合
 		if (br.hasErrors()) {
 			mav.setViewName(BookPageEnum.ERROR.getPath());
@@ -136,7 +141,10 @@ public class BookController {
 	 * @return
 	 */
 	@PostMapping("/save")
-	public ModelAndView save(ModelAndView mav, @Validated BookForm bookForm, BindingResult br) {
+	public ModelAndView save(@Validated BookForm bookForm, BindingResult br) {
+		
+		ModelAndView mav = new ModelAndView();
+		
 		//入力エラーありの場合
 		if (br.hasErrors()) {
 			//エラーページへ遷移
@@ -160,8 +168,10 @@ public class BookController {
 	 * @return
 	 */
 	@PostMapping("/delete")
-	public ModelAndView delete(ModelAndView mav, @Validated(UpdateDeleteSelectGroup.class) BookForm bookForm,
-			BindingResult br) {
+	public ModelAndView delete( @Validated(UpdateDeleteSelectGroup.class) BookForm bookForm, BindingResult br) {
+		
+		ModelAndView mav = new ModelAndView();
+		
 		//入力エラーありの場合
 		if (br.hasErrors()) {
 			//エラーページ遷移
