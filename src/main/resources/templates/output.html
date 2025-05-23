@@ -44,6 +44,10 @@
 			document.body.appendChild(form);
 			form.submit();
 		}
+		
+		function confirmDelete(){
+			return confirm("本当に削除してもいいですか?");
+		}
 	</script>
 </head>
 
@@ -68,7 +72,7 @@
 	</a>
 	<form method="post" name="updateDeleteForm" class="display_inline">
 		<input type="submit" value="更新" class="button_base btn-primary" onclick="actionFunc('update')" />
-		<input type="submit" value="削除" class="button_base btn-danger" onclick="actionFunc('delete')" />
+		<input type="submit" value="削除" class="button_base btn-danger" onclick="return confirmDelete() && actionFunc('delete')"  />
 		<p th:if="${#lists.isEmpty(bookList)}">表示対象データが存在しません。</p>
 		<table th:unless="${#lists.isEmpty(bookList)}" class="border_1 text_left">
 			<thead class="bgcolor_aqua padding_5">
