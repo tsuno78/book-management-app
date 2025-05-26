@@ -47,8 +47,10 @@
 					<th th:text="#{publisher}">出版社</th>
 					<th th:text="#{publishedyear}">出版年</th>
 					<th th:text="#{review}">感想</th>
-					<th th:text="#{isFavorite}">お気に入り</th>
 					<th th:text="#{status}">読書ステータス</th>
+					<th th:text="#{createdAt}">登録日</th>
+					<th th:text="#{updatedAt}">更新日</th>
+					<th th:text="#{isFavorite}">お気に入り</th>
 				</tr>
 			</thead>
 			<tbody class="padding_5">
@@ -60,6 +62,9 @@
 					<td th:text="*{publisher}"></td>
 					<td th:text="*{publishedYear}"></td>
 					<td th:text="*{review}"></td>
+					<td th:text="*{status != null} ? *{status.label}" : ''></td>
+					<td th:text="${book.createdAt != null ? #temporals.format(book.createdAt, 'yyyy/MM/dd HH:mm') : ''}"></td>
+					<td th:text="${book.updatedAt != null ? #temporals.format(book.updatedAt, 'yyyy/MM/dd HH:mm') : ''}"></td>
 					<td>
 						<button type="button" class="button_base btn-favorite"
 							th:text="*{isFavorite} ? '★' : '☆'"
@@ -67,7 +72,6 @@
 							onclick="toggleFavorite(this)">
 						</button>
 					</td>
-					<td th:text="*{status != null} ? *{status.label}" : ''></td>
 				</tr>
 			</tbody>
 		</table>

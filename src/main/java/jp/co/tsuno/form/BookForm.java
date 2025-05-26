@@ -1,5 +1,7 @@
 package jp.co.tsuno.form;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -54,4 +56,9 @@ public class BookForm {
 	 * 読書ステータス
 	 */
 	private String status;
+	
+	/**
+	 * 登録日
+	 */
+	private LocalDateTime createdAt;
 }

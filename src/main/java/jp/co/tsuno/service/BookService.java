@@ -2,6 +2,7 @@ package jp.co.tsuno.service;
 
 import static jp.co.tsuno.data.spec.BookSpecifications.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,8 +76,29 @@ public class BookService {
 	 * @return
 	 */
 	public void save(BookForm form) {
-		//フォームをエンティティに変換
-		Book entity = formToEntity(form);
+		//Book型のentityを宣言
+		Book entity;
+		
+		//新規登録の場合のみcreatedAtを設定
+		if(form.getBookId() == null) {
+			//フォームをエンティティに変換
+			entity = formToEntity(form);
+			entity.setCreatedAt(LocalDateTime.now());
+		} else {
+			//更新時
+			Optional<Book> optExisting = this.dao.findById(form.getBookId());
+			if(optExisting.isPresent()) {
+				Book exisiting = optExisting.get();
+				//既存エンティティを渡してformToEntityで変換
+				entity = formToEntity(form, exisiting);
+				entity.setCreatedAt(exisiting.getCreatedAt());
+				entity.setUpdatedAt(LocalDateTime.now());
+			} else {
+				//万が一既存データがなければ新規として扱う
+				entity = formToEntity(form);
+				entity.setCreatedAt(LocalDateTime.now());
+			}	
+		}
 		//エンティティをDB保存(即時反映)
 		entity = this.dao.save(entity);
 	}
@@ -92,7 +114,7 @@ public class BookService {
 	}
 
 	/**
-	 * フォーム→エンティティ変換
+	 * フォーム→エンティティ変換(新規登録用)
 	 * @param form 書籍情報フォーム
 	 * @return 書籍情報エンティティ
 	 */
@@ -113,6 +135,31 @@ public class BookService {
 		
 		return entity;
 	}
+	
+	/**
+	 * フォーム→エンティティ変換(更新用)
+	 * @param form 書籍情報フォーム
+	 * @param existing 既存のエンティティ
+	 * @return 書籍情報エンティティ
+	 */
+	private Book formToEntity(BookForm form, Book existing) {
+		//変換データ格納用エンティティ
+		Book entity = new Book();
+		//全プロパティコピー
+		BeanUtils.copyProperties(form, entity);
+		//bookIdのみプロパティ名が異なるため個別セット
+		entity.setId(form.getBookId());
+		
+		if(form.getStatus() != null && !form.getStatus().isEmpty()) {
+			entity.setStatus(ReadingStatus.valueOf(form.getStatus()));
+		} else {
+			//フォームのstatusが空なら既存のstatusをセット
+			entity.setStatus(existing.getStatus());
+		}
+		
+		return entity;
+	}
+	
 
 	/**
 	 * お気に入り更新機能

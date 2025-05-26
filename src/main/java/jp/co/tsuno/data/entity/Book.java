@@ -1,5 +1,7 @@
 package jp.co.tsuno.data.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -69,4 +73,17 @@ public class Book {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "reading_status")
 	private ReadingStatus status;
+	
+	/**
+	 * 書籍の登録日
+	 */
+	@CreationTimestamp
+	@Column(name = "created_at")
+	private LocalDateTime createdAt;
+	
+	/**
+	 * 書籍の更新日
+	 */
+	@Column(name = "updated_at", nullable = true)
+	private LocalDateTime updatedAt;
 }
