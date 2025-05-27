@@ -1,10 +1,11 @@
 package jp.co.tsuno.form;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import jp.co.tsuno.validation.FinishDateRequiredIfCompleted;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@FinishDateRequiredIfCompleted
 public class BookForm {
 	
 	/**
@@ -58,7 +60,12 @@ public class BookForm {
 	private String status;
 	
 	/**
-	 * 登録日
+	 * 読書開始日
 	 */
-	private LocalDateTime createdAt;
+	private LocalDate startDate;
+	
+	/**
+	 * 読書完了日
+	 */
+	private LocalDate finishDate;
 }

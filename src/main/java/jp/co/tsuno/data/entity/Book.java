@@ -1,6 +1,6 @@
 package jp.co.tsuno.data.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,8 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -75,15 +73,14 @@ public class Book {
 	private ReadingStatus status;
 	
 	/**
-	 * 書籍の登録日
+	 * 読書開始日
 	 */
-	@CreationTimestamp
-	@Column(name = "created_at")
-	private LocalDateTime createdAt;
+	@Column(name = "start_date")
+	private LocalDate startDate;
 	
 	/**
-	 * 書籍の更新日
+	 * 読書完了日
 	 */
-	@Column(name = "updated_at", nullable = true)
-	private LocalDateTime updatedAt;
+	@Column(name = "finish_date")
+	private LocalDate finishDate;
 }

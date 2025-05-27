@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>インプットページ</title>
-	<link href="css/style.css" rel="stylesheet" type="text/css" >
+	<link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -58,6 +58,22 @@
 						<option value="READING" th:selected="${bookForm.status == 'READING'}">読書中</option>
 						<option value="COMPLETED" th:selected="${bookForm.status == 'COMPLETED'}">読了</option>
 					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="startDate" th:text="#{startDate}">読書開始日</label>
+				</td>
+				<td>
+					<input type="date" id="startDate" th:field="*{startDate}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="finishDate" th:text="#{finishDate}">読書開始日</label>
+				</td>
+				<td>
+					<input type="date" id="finishDate" th:field="*{finishDate}" />
 				</td>
 			</tr>
 		</table>

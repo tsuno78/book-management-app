@@ -150,11 +150,6 @@ public class BookController {
 			//エラーページへ遷移
 			mav.setViewName(BookPageEnum.ERROR.getPath());
 		} else {
-			//createdAtを保持する処理
-			if(bookForm.getBookId() != null) {
-				Book existingBook = this.bookService.getBookById(bookForm.getBookId());
-				bookForm.setCreatedAt(existingBook.getCreatedAt());
-			}
 			//フォームに入力したデータを新規登録
 			this.bookService.save(bookForm);
 			//登録後の社員情報一覧をセッション情報登録

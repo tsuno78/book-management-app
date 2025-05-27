@@ -68,6 +68,22 @@
 					</select>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label for="startDate" th:text="#{startDate}">読書開始日</label>
+				</td>
+				<td>
+					<input type="date" th:field="*{startDate}" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="finishDate" th:text="#{finishDate}">読書開始日</label>
+				</td>
+				<td>
+					<input type="date" th:field="*{finishDate}" />
+				</td>
+			</tr>
 		</table>
 		<input type="submit" value="送信" />
 	</form>

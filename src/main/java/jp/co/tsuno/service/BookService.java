@@ -2,7 +2,6 @@ package jp.co.tsuno.service;
 
 import static jp.co.tsuno.data.spec.BookSpecifications.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,7 +82,6 @@ public class BookService {
 		if(form.getBookId() == null) {
 			//フォームをエンティティに変換
 			entity = formToEntity(form);
-			entity.setCreatedAt(LocalDateTime.now());
 		} else {
 			//更新時
 			Optional<Book> optExisting = this.dao.findById(form.getBookId());
@@ -91,12 +89,9 @@ public class BookService {
 				Book exisiting = optExisting.get();
 				//既存エンティティを渡してformToEntityで変換
 				entity = formToEntity(form, exisiting);
-				entity.setCreatedAt(exisiting.getCreatedAt());
-				entity.setUpdatedAt(LocalDateTime.now());
 			} else {
 				//万が一既存データがなければ新規として扱う
 				entity = formToEntity(form);
-				entity.setCreatedAt(LocalDateTime.now());
 			}	
 		}
 		//エンティティをDB保存(即時反映)
