@@ -26,18 +26,6 @@ public class BookController {
 	private BookService bookService;
 
 	/**
-	 * ログインページ表示
-	 * @param mav
-	 * @return
-	 */
-	@GetMapping("/login")
-	public ModelAndView login(ModelAndView mav) {
-		//ログインページへ移動
-		mav.setViewName(BookPageEnum.LOGIN.getPath());
-		return mav;
-	}
-
-	/**
 	 * 初期表示
 	 * @param mav
 	 * @return
