@@ -140,7 +140,7 @@ public class BookController {
 		} else {
 			//フォームに入力したデータを新規登録
 			this.bookService.save(bookForm);
-			//登録後の社員情報一覧をセッション情報登録
+			//登録後の書籍情報一覧をセッション情報登録
 			mav.addObject("bookList", this.bookService.getBookList());
 			//DBアウトプットページへ遷移
 			mav.setViewName(BookPageEnum.OUTPUT.getPath());
